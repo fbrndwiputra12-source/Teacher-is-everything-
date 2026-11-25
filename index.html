@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Selamat Hari Guru 🙏🏻😊 🍎</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+    color: #fff;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  /* ===== EFEK JATUH ===== */
+  .falling {
+    position: fixed;
+    top: -50px;
+    font-size: 1.5rem;
+    animation: fall linear infinite;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.7;
+  }
+  @keyframes fall { to { transform: translateY(105vh) rotate(360deg); } }
+
+  /* ===== TOMBOL MUSIK ===== */
+  .music-btn {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    z-index: 99;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid #ffd70088;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(8px);
+    color: #ffd700;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 0 20px rgba(255,215,0,0.3);
+  }
+  .music-btn:hover { transform: scale(1.1); box-shadow: 0 0 30px rgba(255,215,0,0.6); }
+  .music-btn.playing { animation: pulse 1.5s infinite; }
+  @keyframes pulse {
+    0%,100% { box-shadow: 0 0 20px rgba(255,215,0,0.3); }
+    50% { box-shadow: 0 0 40px rgba(255,215,0,0.8); }
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 60px 20px 30px;
+  }
+  .hero h1 {
+    font-size: 3rem;
+    background: linear-gradient(90deg, #ffd700, #ff6b6b, #4ecdc4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: glow 3s ease-in-out infinite alternate;
+    margin-bottom: 15px;
+  }
+  @keyframes glow {
+    from { filter: drop-shadow(0 0 10px rgba(255,215,0,0.3)); }
+    to { filter: drop-shadow(0 0 25px rgba(255,215,0,0.8)); }
+  }
+  .hero p {
+    font-size: 1.15rem;
+    opacity: 0.85;
+    max-width: 600px;
+    margin: 0 auto 10px;
+    line-height: 1.7;
+  }
+  .hero .date {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 25px;
+    border: 1px solid #ffd70088;
+    border-radius: 30px;
+    font-size: 0.95rem;
+    color: #ffd700;
+    letter-spacing: 2px;
+  }
+
+  /* ===== SECTION FOTO GURU ===== */
+  .photo-section {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 40px 20px;
+  }
+  .photo-frame {
+    display: inline-block;
+    padding: 15px;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, #ffd700, #ff6b6b, #4ecdc4, #ffd700);
+    animation: spinBorder 6s linear infinite;
+    box-shadow: 0 0 40px rgba(255,215,0,0.3);
+  }
+  @keyframes spinBorder {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  .photo-frame img {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    animation: spinBorder 6s linear infinite reverse;
+    border: 5px solid #16213e;
+    background: #1a1a2e;
+  }
+  .photo-caption {
+    margin-top: 20px;
+    font-size: 1.1rem;
+    color: #ffd700;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+  .photo-caption small {
+    display: block;
+    font-size: 0.85rem;
+    color: #4ecdc4;
+    font-weight: 400;
+    margin-top: 5px;
+    letter-spacing: 0;
+  }
+
+  /* ===== SECTION ===== */
+  .section {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 30px 20px;
+  }
+  .section h2 {
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+    color: #4ecdc4;
+  }
+  .section h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #ffd700, #ff6b6b);
+    margin: 10px auto 0;
+    border-radius: 3px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  .card {
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 20px;
+    padding: 25px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    animation: fadeUp 0.8s ease both;
+  }
+  .card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(255,215,0,0.15);
+    border-color: #ffd70088;
+  }
+  .card .emoji { font-size: 2.2rem; margin-bottom: 10px; display: block; }
+  .card h3 { color: #ffd700; margin-bottom: 8px; font-size: 1.1rem; }
+  .card p { font-size: 0.92rem; opacity: 0.85; line-height: 1.6; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .big-quote {
+    text-align: center;
+    padding: 40px 20px;
+    font-size: 1.35rem;
+    font-style: italic;
+    line-height: 1.8;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .big-quote::before { content: '“'; font-size: 4rem; color: #ffd700; vertical-align: -20px; }
+  .big-quote::after { content: '”'; font-size: 4rem; color: #ffd700; vertical-align: -20px; }
+  .big-quote .author {
+    display: block;
+    margin-top: 15px;
+    font-size: 0.95rem;
+    font-style: normal;
+    color: #4ecdc4;
+    letter-spacing: 1px;
+  }
+
+  footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 30px 20px;
+    font-size: 0.9rem;
+    opacity: 0.6;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    margin-top: 20px;
+  }
+  footer .heart { color: #ff6b6b; animation: beat 1s infinite; display: inline-block; }
+  @keyframes beat { 0%,100% { transform: scale(1); } 50% { transform: scale(1.3); } }
+
+  @media (max-width: 600px) {
+    .hero h1 { font-size: 2rem; }
+    .photo-frame img { width: 140px; height: 140px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="falling-container"></div>
+
+<!-- TOMBOL MUSIK -->
+<button class="music-btn" id="musicBtn" title="Putar / Jeda Musik">🎵</button>
+<audio id="bgMusic" loop>
+  <!-- GANTI src dengan file musik lo, atau URL online -->
+  <source src="musik.mp3" type="audio/mpeg">
+</audio>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>🍎 Selamat Hari Guruku 2026 🍎</h1>
+  <p>Terima kasih kepada para pahlawan tanpa tanda jasa yang telah menerangi jalan kami dengan ilmu dan kasih.</p>
+  <div class="date">25 NOVEMBER 2026</div>
+</section>
+
+<!-- FOTO GURU -->
+<section class="photo-section">
+  <div class="photo-frame">
+    <!-- GANTI src dengan file foto guru lo, misal "guru.jpg" -->
+    <img id="teacherPhoto" src="https://via.placeholder.com/300x300/16213e/ffd700?text=FOTO+GURU" alt="Foto Guru">
+  </div>
+  <div class="photo-caption">
+     aa Guru Tercinta
+    <small>Pahlawan Tanpa Tanda Jasa</small>
+  </div>
+</section>
+
+<!-- KARTU UCAPAN -->
+<section class="section">
+  <h2>💐 Pesan Untuk Guru</h2>
+  <div class="grid">
+    <div class="card">
+      <span class="emoji">📚</span>
+      <h3>Pahlawan Ilmu</h3>
+      <p>Terima kasih sudah sabar mengajari kami, bahkan ketika kami susah diatur. Jasamu tak akan pernah terlupakan.</p>
+    </div>
+    <div class="card">
+      <span class="emoji">🌟</span>
+      <h3>Penerang Jalan</h3>
+      <p>Kau bagai cahaya yang menerangi kegelapan. Tanpamu, kami mungkin tersesat tanpa arah.</p>
+    </div>
+    <div class="card">
+      <span class="emoji">❤️</span>
+      <h3>Tulus Mengabdi</h3>
+      <p>Bukan hanya ilmu yang kau beri, tapi juga kasih sayang dan contoh teladan sepanjang hari.</p>
+    </div>
+    <div class="card">
+      <span class="emoji">🕊️</span>
+      <h3>Doa Terbaik</h3>
+      <p>Semoga engkau selalu sehat, bahagia, dan dilimpahi rezeki. Kau adalah guru sejati kami.</p>
+    </div>
+  </div>
+</section>
+
+<section class="big-quote">
+  Guru adalah pahlawan tanpa tanda jasa. Tanpa mereka, , kami tidak mengerti tentang apa arti, kehidupan, keikhlasan, dan kesabaran. Terima kasih, Guru!
+  <span class="author">— Untuk aa tercinta Guruku</span>
+</section>
+
+<footer>
+  Dibuat dengan <span class="heart">❤️</span> untuk para guru hebat.<br>
+  &copy; 2026 Hari Guru Nasional
+</footer>
+
+<script>
+  // ===== EFEK JATUH =====
+  const container = document.getElementById('falling-container');
+  const emojis = ['🌸','🍎','🌟','📚','💐','🎓','❤️','✨'];
+
+  function createFalling() {
+    const el = document.createElement('div');
+    el.className = 'falling';
+    el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    el.style.left = Math.random() * 100 + 'vw';
+    el.style.animationDuration = (5 + Math.random() * 6) + 's';
+    el.style.fontSize = (1 + Math.random() * 1.5) + 'rem';
+    el.style.opacity = 0.4 + Math.random() * 0.5;
+    container.appendChild(el);
+    setTimeout(() => el.remove(), 12000);
+  }
+  setInterval(createFalling, 500);
+  for (let i = 0; i < 20; i++) setTimeout(createFalling, i * 200);
+
+  // ===== ANIMASI KARTU =====
+  document.querySelectorAll('.card').forEach((card, i) => {
+    card.style.animationDelay = (i * 0.15) + 's';
+  });
+
+  // ===== MUSIK =====
+  const musicBtn = document.getElementById('musicBtn');
+  const bgMusic = document.getElementById('bgMusic');
+  let isPlaying = false;
+
+  musicBtn.addEventListener('click', () => {
+    if (!isPlaying) {
+      bgMusic.play().then(() => {
+        isPlaying = true;
+        musicBtn.textContent = '⏸️';
+        musicBtn.classList.add('playing');
+      }).catch(err => {
+        alert('File musik ga ketemu, bos! Pastiin "musik.mp3" ada di folder yang sama. 🎵');
+      });
+    } else {
+      bgMusic.pause();
+      isPlaying = false;
+      musicBtn.textContent = '🎵';
+      musicBtn.classList.remove('playing');
+    }
+  });
+
+  // Kalo musik selesai (walaupun loop), reset state
+  bgMusic.addEventListener('ended', () => {
+    isPlaying = false;
+    musicBtn.textContent = '🎵';
+    musicBtn.classList.remove('playing');
+  });
+</script>
+</body>
+  </html>
